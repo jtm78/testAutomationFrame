@@ -5,6 +5,7 @@ import io.restassured.response.Response;
 import logic.pet.requests.PostRequests;
 import models.pet.PetData;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class PetOperations {
@@ -21,7 +22,7 @@ public class PetOperations {
 
     public static PetData findPetFromListById(List<PetData> list, String id) {
         return list.stream()
-                .filter(x -> x.getId().equals(id))
+                .filter(x -> x.getId().toString().equals(id))
                 .findFirst()
                 .get();
     }
@@ -33,7 +34,7 @@ public class PetOperations {
             instance = new JsonDecomposer().decomposeFile(PetData.class);
         }
 
-        public Builder setId(String id) {
+        public Builder setId(BigInteger id) {
             instance.setId(id);
             return this;
         }

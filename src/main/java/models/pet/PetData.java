@@ -2,11 +2,12 @@ package models.pet;
 
 import lombok.Getter;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Getter
 public class PetData {
-    private String id;
+    private BigInteger id;
 
     private CategoryData category;
     
@@ -18,7 +19,7 @@ public class PetData {
 
     private String status;
 
-    public PetData setId(String id) {
+    public PetData setId(BigInteger id) {
         this.id = id;
         return this;
     }
