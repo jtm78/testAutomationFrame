@@ -1,13 +1,13 @@
 package logic.pet.requests;
 
-import endpoints.IPetEndpoints;
+import endpoints.PetEndpoints;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 public class GetRequests {
     public Response getPetById(String id) {
         return RestAssured.when()
-                .get(IPetEndpoints.getPetById + id)
+                .get(PetEndpoints.GET_PET_BY_ID + id)
                 .then()
                     .extract().response();
     }
@@ -16,7 +16,7 @@ public class GetRequests {
         return RestAssured.given()
                 .param("status", status)
                 .when()
-                    .get(IPetEndpoints.findPetsByStatus)
+                    .get(PetEndpoints.FIND_PET_BY_STATUS)
                 .then()
                     .extract().response();
     }
