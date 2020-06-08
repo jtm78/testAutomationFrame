@@ -8,7 +8,6 @@ import java.math.BigInteger;
 public class RandomGenerator {
 
     public static String generateAlphabetic() {
-
         return RandomStringUtils.randomAlphabetic(7);
     }
 

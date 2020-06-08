@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class JsonDecomposer {
 
-    public <T> T decomposeFile(Class<T> modelClass) {
+    public <T> T decomposeFileIntoObject(Class<T> modelClass) {
         String className = getClassName(modelClass);
         return generateInstance(modelClass, className);
     }
