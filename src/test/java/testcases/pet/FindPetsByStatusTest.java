@@ -1,39 +1,42 @@
 package testcases.pet;
 
 import core.assertions.DefaultAssert;
-import core.helpers.RandomGenerator;
 import io.restassured.response.Response;
 import core.ListOperations;
 import logic.pet.PetOperations;
+import logic.pet.StatusType;
 import logic.pet.requests.GetRequests;
 import models.pet.PetData;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import testcases.BaseTest;
 
 import java.util.List;
 
 public class FindPetsByStatusTest extends BaseTest {
-    private PetData createdPet;
 
-    @BeforeClass
-    public void createPet(){
-        PetOperations pet = new PetOperations.Builder()
-                .setId(RandomGenerator.generateNumeric())
-                .setName(RandomGenerator.generateAlphabetic())
-                .build();
-        createdPet = pet.create();
+    @DataProvider(name = "statusesType")
+    public Object[] validStatuses(){
+        return new Object[]{
+                StatusType.AVAILABLE,
+                StatusType.PENDING,
+                StatusType.SOLD
+        };
     }
 
-    @Test
-    public void findPetsByStatus() {
-        Response response = new GetRequests().getPetsList(createdPet.getStatus());
+    @Test(dataProvider = "statusesType")
+    public void findPetsByStatus(StatusType type) {
+        PetData petData = PetOperations.generatePetData()
+                .setStatus(type.getStatusName());
+        PetOperations petOperations = new PetOperations(petData);
+        petOperations.create();
+
+        Response response = new GetRequests().getPetsList(petData.getStatus());
         DefaultAssert.assertStatusCode(response, HttpStatus.SC_OK);
         List<PetData> listWithPets = ListOperations.convertResponseToList(response, PetData[].class);
-        PetData petFromList = PetOperations.findPetFromListById(listWithPets, createdPet.getId());
-        Assert.assertEquals(petFromList.getId(), createdPet.getId(), "IDs are different");
-        Assert.assertEquals(petFromList.getStatus(), createdPet.getStatus(), "Statuses are different");
+        PetData petFromList = petOperations.findPetFromListById(listWithPets);
+        Assert.assertEquals(petFromList.getId(), petData.getId(), "IDs are different");
+        Assert.assertEquals(petFromList.getStatus(), petData.getStatus(), "Statuses are different");
     }
 }

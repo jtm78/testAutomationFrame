@@ -1,17 +1,16 @@
 package logic.pet;
 
 import core.helpers.JsonDecomposer;
+import core.helpers.RandomGenerator;
 import io.restassured.response.Response;
 import logic.pet.requests.PostRequests;
 import models.pet.PetData;
-
-import java.math.BigInteger;
 import java.util.List;
 
 public class PetOperations {
     private PetData data;
 
-    private PetOperations(PetData data) {
+    public PetOperations(PetData data) {
         this.data = data;
     }
 
@@ -20,38 +19,17 @@ public class PetOperations {
         return createdUserResponse.as(PetData.class);
     }
 
-    public static PetData findPetFromListById(List<PetData> list, String id) {
+    public PetData findPetFromListById(List<PetData> list) {
         return list.stream()
-                .filter(x -> x.getId().toString().equals(id))
+                .filter(pet -> pet.getId().toString().equals(data.getId().toString()))
                 .findFirst()
                 .get();
     }
 
-    public static class Builder {
-        private PetData instance;
-
-        public Builder() {
-            instance = new JsonDecomposer().decomposeFile(PetData.class);
-        }
-
-        public Builder setId(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder setName(String name) {
-            instance.setName(name);
-            return this;
-        }
-
-        public Builder setStatus(String status) {
-            instance.setStatus(status);
-            return this;
-        }
-
-        public PetOperations build() {
-            return new PetOperations(instance);
-        }
+    public static PetData generatePetData() {
+        PetData petData = new JsonDecomposer().decomposeFileIntoObject(PetData.class);
+        petData.setId(RandomGenerator.generateNumeric());
+        petData.setName(RandomGenerator.generateAlphabetic());
+        return petData;
     }
-
 }
