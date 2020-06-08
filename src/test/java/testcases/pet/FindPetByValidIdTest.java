@@ -8,7 +8,6 @@ import models.pet.PetData;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import testcases.BaseTest;
 

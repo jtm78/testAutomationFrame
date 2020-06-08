@@ -1,15 +1,12 @@
 package testcases.pet;
 
 import core.assertions.DefaultAssert;
-import core.helpers.JsonDecomposer;
-import core.helpers.RandomGenerator;
 import io.restassured.response.Response;
 import logic.pet.PetOperations;
 import logic.pet.requests.PostRequests;
 import models.pet.PetData;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import testcases.BaseTest;
 
