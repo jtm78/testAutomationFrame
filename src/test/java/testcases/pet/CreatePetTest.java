@@ -18,7 +18,7 @@ public class CreatePetTest extends BaseTest {
         Response response = new PostRequests().createPet(requestModel);
         DefaultAssert.assertStatusCode(response, HttpStatus.SC_OK);
         PetData responseModel = response.as(PetData.class);
-        Assert.assertEquals(requestModel.getId(), responseModel.getName(), "IDs are different");
+        Assert.assertEquals(requestModel.getId(), responseModel.getId(), "IDs are different");
         Assert.assertEquals(requestModel.getName(), responseModel.getName(), "Names are different ");
     }
 }
