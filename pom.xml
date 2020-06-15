@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <testNG.listeners>core.testNgListeners.ConsoleLogReporter</testNG.listeners>
+        <testNG.listeners>core.testNgListeners.ConsoleLogReporter, core.testNgListeners.testRetry.AnnotationTransformer</testNG.listeners>
         <aspectj.version>1.8.10</aspectj.version>
         <allure-testng.version>2.6.0</allure-testng.version>
     </properties>
@@ -68,8 +68,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
                 <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>3</threadCount>
+<!--                    <parallel>methods</parallel>-->
+<!--                    <threadCount>3</threadCount>-->
                     <properties>
                         <property>
                             <name>listener</name>
