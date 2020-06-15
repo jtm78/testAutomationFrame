@@ -10,6 +10,7 @@ public class ConsoleLogReporter implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
+        System.out.println();
         String testName = "Test " + "\"" + iTestResult.getInstanceName()
                 + "." + iTestResult.getName() + "\"" + " Started";
         log.info(StringUtils.repeat("=", 40) + "START" + StringUtils.repeat("=", 40));
