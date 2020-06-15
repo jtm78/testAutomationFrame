@@ -8,9 +8,11 @@ import org.testng.annotations.Test;
 public class FirstSeleniumTest {
 
     @Test
-    public void checkOutThatUrlOpens(){
+    public void checkOutThatUrlOpens() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", Constants.RESOURCES_PATH + "chromedriver.exe");
         WebDriver driver = new ChromeDriver();
-        driver.get("https://google.com");
+        driver.get("https://www.google.com/");
+        Thread.sleep(5000);
+
     }
 }
