@@ -1,6 +1,7 @@
 package testcases.pet;
 
 import core.assertions.DefaultAssert;
+import core.testNgListeners.testRetry.UnstableTest;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import logic.pet.PetOperations;
@@ -13,9 +14,11 @@ import testcases.BaseTest;
 
 import java.math.BigInteger;
 
+
 public class CreatePetTest extends BaseTest {
 
     @Test
+    @UnstableTest
     public void createPetAndCheckOutStatusCode() {
         PetData requestModel = generatePetModel();
         Response response = sendRequestAndCheckOutCode(requestModel, HttpStatus.SC_OK);
