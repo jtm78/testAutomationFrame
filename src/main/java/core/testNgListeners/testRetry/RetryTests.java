@@ -10,18 +10,11 @@ public class RetryTests implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult iTestResult) {
-        if (!iTestResult.isSuccess()) {
-            if (iTestResult.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(UnstableTest.class)) {
-                if (count < countOfRetry) {
-                    count++;
-                    iTestResult.setStatus(ITestResult.FAILURE);
-                    return true;
-                } else {
-                    iTestResult.setStatus(ITestResult.FAILURE);
-                }
+        if (iTestResult.getMethod().getConstructorOrMethod().getMethod().isAnnotationPresent(UnstableTest.class)) {
+            if (count < countOfRetry) {
+                count++;
+                return true;
             }
-        } else {
-            iTestResult.setStatus(ITestResult.SUCCESS);
         }
         return false;
     }
